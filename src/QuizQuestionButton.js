@@ -1,37 +1,22 @@
 import React, { Component } from "react";
-import QuizEnd from "./QuizEnd";
-import QuizQuestion from "./QuizQuestion";
-let quizData = require("./quiz_data.json");
 
-class Quiz extends Component {
+class QuizQuestionButton extends Component {
   constructor(props) {
     super(props);
-    this.state = { quiz_position: 1 };
-    this.showNextQuestion = this.showNextQuestion.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
   }
-  showNextQuestion() {
-    this.setState(state => {
-      return { quiz_position: state.quiz_position + 1 };
-    });
+  handleClick() {
+    this.props.clickHandler(this.props.button_text);
   }
   render() {
-    const isQuizEnd =
-      this.state.quiz_position - 1 === quizData.quiz_questions.length;
     return (
-      <div>
-        {isQuizEnd ? (
-          <QuizEnd />
-        ) : (
-          <QuizQuestion
-            quiz_question={
-              quizData.quiz_questions[this.state.quiz_position - 1]
-            }
-            showNextQuestion={this.showNextQuestion}
-          />
-        )}
-      </div>
+      <li>
+        <button onClick={this.handleClick.bind(this)}>
+          {this.props.button_text}
+        </button>
+      </li>
     );
   }
 }
 
-export default Quiz;
+export default QuizQuestionButton;
